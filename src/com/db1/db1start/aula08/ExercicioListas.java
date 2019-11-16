@@ -27,24 +27,19 @@ public class ExercicioListas {
 				"Fantasia");
 		List<Integer> numeros = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 		
-		System.out.println("Cores que mais gosto: " + coresFavoritas(listaDeCores(cores)));
-		System.out.println("Quantidade de cores: " + quantidadeDeItens(listaDeCores(cores)));
+		System.out.println("Cores que mais gosto: " + coresFavoritas(cores));
+		System.out.println("Quantidade de cores: " + quantidadeDeItens(cores));
 		System.out.print("Adiciona 03 Strings e remove String da posicao 02: ");
 		System.out.println(adiciona3StringsRemovePosicao2("Posicao0", "Posicao1", "Posicao2"));
-		System.out.println("Lista de Cores: " + listaDeCores(cores));
-		System.out.println("Ordena Lista: " + ordenaLista(listaDeCores(cores)));
-		System.out.println("Remove uma Cor favorita: " + removeCorFavorita(coresFavoritas(listaDeCores(cores)), "Azul"));
+		System.out.println("Lista de Cores: " + cores);
+		System.out.println("Ordena Lista: " + ordenaLista(cores));
+		System.out.println("Remove uma Cor favorita: " + removeCorFavorita(coresFavoritas(cores), "Azul"));
 		System.out.print("Imprime lista em ordem decrescente: ");
-		imprimeEmOrdemDecrescente(listaDeCores(cores));
+		imprimeEmOrdemDecrescente(cores);
 		System.out.println("Map Par/Impar: " + map(numeros));		
 	}
 	
-	public static List<String> listaDeCores(List<String> list) {
-		return list;
-	}
-	
 	public static List<String> coresFavoritas (List<String> list) {
-		listaDeCores(list);
 		List<String> coresFavoritas = new ArrayList<>();
 		coresFavoritas.add(list.stream().filter(x -> x.startsWith("Az")).findFirst().orElse(null));
 		coresFavoritas.add(list.stream().filter(x -> x.contains("Preto")).findFirst().orElse(null));
