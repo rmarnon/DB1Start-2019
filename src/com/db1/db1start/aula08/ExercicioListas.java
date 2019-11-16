@@ -12,19 +12,8 @@ public class ExercicioListas {
 
 	public static void main(String[] args) {
 		
-		List<String> cores = Arrays.asList(
-				"Azul", 
-				"Vermelho", 
-				"Preto", 
-				"Branco", 
-				"Verde", 
-				"Amarelo",
-				"Rosa",
-				"Cinza",
-				"Marrom",
-				"Lilas",
-				"Violeta",
-				"Fantasia");
+		List<String> cores = Arrays.asList("Azul", "Vermelho", "Preto", "Branco", 
+			"Verde", "Amarelo", "Rosa", "Cinza", "Marrom", "Lilas", "Violeta", "Fantasia");				
 		List<Integer> numeros = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 		
 		System.out.println("Cores que mais gosto: " + coresFavoritas(cores));
