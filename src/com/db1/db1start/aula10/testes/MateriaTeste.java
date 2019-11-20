@@ -23,9 +23,9 @@ public class MateriaTeste {
 	
 	@Test
 	public void retornaMateriaCadastradaComSobrecargaDeProfessor() {
-		Professor professor = new Professor("Professor", "professor@email.com", 1575.00);
+		Professor professor = new Professor("Professor", "professor@email.com", 15750.00);
 		String name = "ESOFT";
-		String descricao = "BEngenharia de Software";
+		String descricao = "Engenharia de Software";
 		Double cargaHoraria = 120.0;
 		Integer quantidadeDeAulas = 40;
 		Materia materia = new Materia(name, descricao, cargaHoraria, quantidadeDeAulas, professor);

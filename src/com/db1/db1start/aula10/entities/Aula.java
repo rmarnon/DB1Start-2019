@@ -43,8 +43,12 @@ public class Aula {
 		return alunos;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+	public void addAluno(Aluno aluno) {
+		alunos.add(aluno);
+	}
+	
+	public void removeAluno(Aluno aluno) {
+		alunos.remove(aluno);
 	}
 	
 	@Override
