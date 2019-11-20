@@ -1,5 +1,7 @@
 package com.db1.db1start.aula10.entities;
 
+import com.db1.db1start.aula11.exceptions.CampoNaoPodeSerNull;
+
 public class Professor extends Pessoa{
 
 	public Double salario;
@@ -13,6 +15,9 @@ public class Professor extends Pessoa{
 	
 	public Professor(String nome, String email, Double salario) {
 		super(nome, email);
+		if(salario == null) {
+			throw new CampoNaoPodeSerNull("Campo salario deve ser informado!");
+		}
 		this.salario = salario;
 	}
 
@@ -28,6 +33,5 @@ public class Professor extends Pessoa{
 	public String toString() {
 		return super.toString() + " \nSalario: " + salario;
 	}
-
 }
 

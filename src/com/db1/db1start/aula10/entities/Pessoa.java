@@ -1,15 +1,22 @@
 package com.db1.db1start.aula10.entities;
 
+import com.db1.db1start.aula11.exceptions.CampoNaoPodeSerNull;
+
 public abstract class Pessoa {
 
-	private String nome;
-	private String email;
+	protected String nome;
+	protected String email;
 	
 	public Pessoa() {
 	}	
 	
 	public Pessoa(String nome, String email) {
-		super();
+		if(nome == null) {
+			throw new CampoNaoPodeSerNull("Campo nome nao pode ser nulo!");
+		}
+		if(email == null) {
+			throw new CampoNaoPodeSerNull("Campo email nao pode ser nulo!");
+		}
 		this.nome = nome;
 		this.email = email;
 	}	

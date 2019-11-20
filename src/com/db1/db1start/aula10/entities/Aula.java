@@ -5,20 +5,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.db1.db1start.aula11.exceptions.CampoNaoPodeSerNull;
+
 public class Aula {
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-	public Date data;
+	private Date data;
 	
-	public Materia materia;
-	public List<Aluno> alunos = new ArrayList<>();
+	private Materia materia;
+	private List<Aluno> alunos = new ArrayList<>();
 			
 	public Aula() {
 	}
 
 	public Aula(Date data, Materia materia) {
-		super();
+		if(data == null) {
+			throw new CampoNaoPodeSerNull("Data Invalida, entre com uma data no formato DD/MM/YYYY");
+		}
+		if(materia == null) {
+			throw new CampoNaoPodeSerNull("Campo materia deve ser preenchido!");
+		}
 		this.data = data;
 		this.materia = materia;
 	}
@@ -44,12 +51,29 @@ public class Aula {
 	}
 
 	public void addAluno(Aluno aluno) {
+		if(aluno == null) {
+			throw new CampoNaoPodeSerNull("Campo aluno vazio");
+		}
 		alunos.add(aluno);
 	}
 	
 	public void removeAluno(Aluno aluno) {
+		if(alunos.size() < 0) {
+			throw new NullPointerException("A lista esta vazia!");
+		}
 		alunos.remove(aluno);
 	}
+	
+	public int quantidadeDeAlunosPresentes() {
+        return alunos.size();
+    }
+	
+	public void darPresenca(Aluno aluno) {
+        if (aluno == null) {
+            throw new CampoNaoPodeSerNull("Campo aluno vazio");
+        }
+        this.alunos.add(aluno);
+    }
 	
 	@Override
 	public String toString() {

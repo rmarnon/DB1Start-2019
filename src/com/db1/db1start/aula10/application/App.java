@@ -20,27 +20,30 @@ public class App {
 		Aluno aluno1 = new Aluno("Maiko Cunha", "maiko.cunha@db1.com.br", 9.8);		
 		Aluno aluno2 = new Aluno("Joao silva","joao.silva@db1.com.br", 8.6);
 		
-		Professor professor1 = new Professor("Igor silva", "Igor.Silva@db1.com.br", 1500.00);
+		Professor professor1 = new Professor("Igor Silva", "igor.silva@db1.com.br", 1500.00);
+		Professor professor2 = new Professor("Maiko Cunha", "maiko.cunha@db1.com.br", 8570.00);
 		
-		Materia materia = new Materia();
-		materia.name = "POO";
-		materia.descricao = "Programacao Orientada a Objetos";
-		materia.cargaHoraria = 80.0;
-		materia.quantidadeDeAulas  = 40;
-		materia.professor = professor1;
+		Materia materia = new Materia("POO", "Programacao Orientada Objetos", 10.5, 3, professor1);
 		
 		Aula aula = new Aula();
-		aula.data = sdf.parse("19/11/2019");
-		aula.materia = materia;
-		aula.alunos.add(aluno1);
-		aula.alunos.add(aluno2);
+		aula.setData(sdf.parse("19/11/2019"));
+		aula.setMateria(materia);
+		aula.addAluno(aluno1);
+		aula.addAluno(aluno2);
 		
 		alunos.add(aluno1);
 		alunos.add(aluno2);
 		
 		alunos.forEach(System.out::println);
+		System.out.println();
 		System.out.println("-------------------------------------------------------------");
-		System.out.println(aula);		
+		System.out.println();
+		System.out.println(aula);	
+		
+		System.out.println("-------------------------------------------------------------");
+		System.out.println("Trocando o professor: ");
+		materia.trocaProfessor(professor2);		
+		System.out.println(materia);
 	}
 
 }
