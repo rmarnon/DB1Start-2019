@@ -106,4 +106,14 @@ public class MateriaTeste {
 		}
 	}
 	
+	@Test
+	public void deveTrocarProfessor() {
+		Professor professor1 = new Professor("ProfessorUm", "professor@um.com");
+		Professor professor2 = new Professor("ProfessorDois", "professor@dois.com");
+		Materia materia = new Materia("POO", "Programacao Orientada Objetos", 10.5, 3, professor1);
+		Assert.assertEquals(professor1, materia.getProfessor());
+		materia.trocaProfessor(professor2);
+		Assert.assertEquals(professor2, materia.getProfessor());
+	}
+	
 }
