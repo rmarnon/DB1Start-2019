@@ -1,7 +1,8 @@
-package com.db1.cidadesapi.domain.services;
+package com.db1.cidadesapi.testes;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +22,11 @@ public class EstadoServiceTest {
 	
 	@Test
 	public void test() {
-		Estado estado = service.criar("Parana");
+		Estado estado = service.criarEstado("Parana");
 		
 		assertNotNull(estado);
 		System.out.println(estado.getId());
 	}
-	
-	/*@After
-	public void clean() {
-		service.limpar();
-	}*/
 	
 	@Test
 	public void deveBuscarPorEstado( ) {
@@ -44,8 +40,13 @@ public class EstadoServiceTest {
 			Estado estado = service.buscarPorNome("Sao Paulo");
 			assertNotNull(estado);
 		}
-		catch (RuntimeException e) {
-			System.out.println(e.getMessage());
+		catch (RuntimeException msg) {
+			System.out.println(msg.getMessage());
 		}
-	}	
+	}
+	
+	@After
+	public void clean() {
+		//service.limpar();
+	}
 }

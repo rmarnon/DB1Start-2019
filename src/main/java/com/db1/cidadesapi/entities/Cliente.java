@@ -1,16 +1,13 @@
 package com.db1.cidadesapi.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Cliente")
@@ -25,20 +22,17 @@ public class Cliente {
 	private String cpf;
 	private String telefone;
 	
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "conta_id")
-	@MapsId
+
+	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private Conta conta;
 	
 	public Cliente() {
 	}
 
-	public Cliente(String nome, String cpf, String telefone, Conta conta) {
+	public Cliente(String nome, String cpf, String telefone) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
-		this.conta = conta;
 	}
 
 	public Long getId() {

@@ -1,6 +1,5 @@
 package com.db1.cidadesapi.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,10 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.db1.cidadesapi.enums.EstadoConta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Conta")
@@ -27,7 +28,10 @@ public class Conta {
 	private Agencia agencia;
 	private Double saldo;
 	
-	@OneToOne(mappedBy = "conta", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "cliente_id")
+	@MapsId
 	private Cliente cliente;
 	
 	@Enumerated(EnumType.STRING)

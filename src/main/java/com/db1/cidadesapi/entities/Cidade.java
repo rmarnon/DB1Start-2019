@@ -57,4 +57,8 @@ public class Cidade {
 		return agencias;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
 }

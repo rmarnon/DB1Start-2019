@@ -15,8 +15,8 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 	
-	public Cliente criaCliente(String nome, String cpf, String telefone, Conta conta) {
-		Cliente cliente = new  Cliente(nome, cpf, telefone, conta);
+	public Cliente criaCliente(String nome, String cpf, String telefone) {
+		Cliente cliente = new  Cliente(nome, cpf, telefone);
 		return repo.save(cliente);
 	}
 	
