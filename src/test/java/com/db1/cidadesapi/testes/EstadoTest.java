@@ -15,7 +15,7 @@ import com.db1.cidadesapi.services.EstadoService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EstadoServiceTest {
+public class EstadoTest {
 
 	@Autowired
 	private EstadoService service;

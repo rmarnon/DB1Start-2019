@@ -31,7 +31,6 @@ public class Conta {
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
-	@MapsId
 	private Cliente cliente;
 	
 	@Enumerated(EnumType.STRING)
@@ -66,6 +65,15 @@ public class Conta {
 	public EstadoConta getEstado() {
 		return estado;
 	}
-
+	
+	public void saque(double valor) {
+		if(valor > saldo) {
+			throw new RuntimeException("Saldo insuficiente para o valor de R$" + String.format("%.2f", valor));
+		}
+		if(valor < 0) {
+			throw new RuntimeException("impossivel sacar valores inferior a zero!");
+		}
+		saldo -= valor;
+	}
 
 }

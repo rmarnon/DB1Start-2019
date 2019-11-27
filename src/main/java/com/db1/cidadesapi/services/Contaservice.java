@@ -1,5 +1,6 @@
 package com.db1.cidadesapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,14 @@ import com.db1.cidadesapi.enums.EstadoConta;
 import com.db1.cidadesapi.repositories.ContaRepository;
 
 @Service
-public class Contaservice {
+public class ContaService {
 
 	@Autowired
 	private ContaRepository repo;
 	
 	public Conta criarConta(Agencia agencia, Double saldo, Cliente cliente, EstadoConta estado) {
 		Conta conta = new Conta(agencia, saldo, cliente, estado);
-		return conta;
+		return repo.save(conta);
 	}
 	
 	public void limpar() {
@@ -30,7 +31,20 @@ public class Contaservice {
 		Optional<Conta> estado = repo.findById(id);
 		return estado.orElseThrow(() -> new RuntimeException("Conta nao encontrada! id: " 
 				+ id + ", Tipo: " + Conta.class.getName()));
-	}	
+	}
+	
+	public List<Conta> retornaTodasAsContas() {
+		List<Conta> conta = repo.findAll();
+		return conta;
+	}
+	
+	public void sacar(Long id, double valor) {
+		Optional<Conta> conta = repo.findById(id);
+		conta.ifPresent(con -> {
+			con.saque(valor);
+			repo.save(con);
+		});
+	}
 	
 	
 }

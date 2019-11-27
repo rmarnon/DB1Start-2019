@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db1.cidadesapi.entities.Cliente;
-import com.db1.cidadesapi.entities.Conta;
 import com.db1.cidadesapi.repositories.ClienteRepository;
 
 @Service

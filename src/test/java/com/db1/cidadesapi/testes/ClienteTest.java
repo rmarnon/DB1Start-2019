@@ -15,7 +15,7 @@ import com.db1.cidadesapi.services.ClienteService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClienteServiceTest {
+public class ClienteTest {
 
 	@Autowired
 	public ClienteService clienteService;
@@ -47,7 +47,7 @@ public class ClienteServiceTest {
 	
 	@After
 	public void clean() {
-		clienteService.limpar();
+		//clienteService.limpar();
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.db1.cidadesapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,10 @@ public class AgenciaService {
 		Optional<Agencia> agencia = repo.findById(id);
 		return agencia.orElseThrow(() -> new RuntimeException("Agencia nao identificada! id: " 
 				+ id + ", Tipo: " + Agencia.class.getName()));
+	}
+	
+	public List<Agencia> buscarTodasAgencias() {
+		List<Agencia> agencia = repo.findAll();
+		return agencia;
 	}
 }
