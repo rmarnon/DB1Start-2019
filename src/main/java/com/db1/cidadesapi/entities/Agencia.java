@@ -38,8 +38,7 @@ public class Agencia {
 	public Agencia() {
 	}
 
-	public Agencia(Long id, String numero, String digito, String banco, Cidade cidade) {
-		this.id = id;
+	public Agencia(String numero, String digito, String banco, Cidade cidade) {
 		this.numero = numero;
 		this.digito = digito;
 		this.banco = banco;

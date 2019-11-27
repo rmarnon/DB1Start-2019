@@ -42,6 +42,7 @@ public class EstadoServiceTest {
 	public void deveLancarExcessao() {
 		try {
 			Estado estado = service.buscarPorNome("Sao Paulo");
+			assertNotNull(estado);
 		}
 		catch (RuntimeException e) {
 			System.out.println(e.getMessage());

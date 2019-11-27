@@ -36,8 +36,7 @@ public class Conta {
 	public Conta() {
 	}
 
-	public Conta(Long id, Agencia agencia, double saldo, Cliente cliente, EstadoConta estado) {
-		this.id = id;
+	public Conta(Agencia agencia, double saldo, Cliente cliente, EstadoConta estado) {
 		this.agencia = agencia;
 		this.saldo = saldo;
 		this.cliente = cliente;

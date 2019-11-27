@@ -1,5 +1,7 @@
 package com.db1.cidadesapi.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ public class EstadoService {
 	@Autowired
 	private EstadoRepository repo;
 	
-	public Estado criar(String nome) {
+	public Estado criarEstado(String nome) {
 		Estado estado = new Estado(nome);
 		return repo.save(estado);
 	}
@@ -25,5 +27,10 @@ public class EstadoService {
 		return repo.findByNome(nome).orElseThrow(() -> new RuntimeException("Estado nao encontrado"));
 	}
 	
+	public Estado buscarPorId(Long id) {
+		Optional<Estado> estado = repo.findById(id);
+		return estado.orElseThrow(() -> new RuntimeException("Estado nao encontrado! id: " 
+				+ id + ", Tipo: " + Estado.class.getName()));
+	}	
 	
 }
