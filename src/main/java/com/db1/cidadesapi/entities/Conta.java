@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -74,6 +73,31 @@ public class Conta {
 			throw new RuntimeException("impossivel sacar valores inferior a zero!");
 		}
 		saldo -= valor;
+	}
+	
+	public void alteraTipo(EstadoConta estado) {
+		this.estado = estado;
+	}
+	
+	public void depositar(Double montante) {
+		if(montante ==  null) {
+			throw new RuntimeException("Valor nao pode ser nulo!");
+		}
+		if(montante < 0) {
+			throw new RuntimeException("Valor insuficiente!");
+		}
+		saldo += montante;
+	}
+	
+	public void transferencia(double montante, Conta conta) {
+		if(montante > saldo) {
+			throw new RuntimeException("Saldo insuficiente para tranferencia!");
+		}
+		if(conta == null) {
+			throw new RuntimeException("Conta inexistente");
+		}
+		saque(montante);
+		conta.depositar(montante);
 	}
 
 }

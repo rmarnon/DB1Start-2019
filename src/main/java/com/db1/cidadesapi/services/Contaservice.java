@@ -46,5 +46,20 @@ public class ContaService {
 		});
 	}
 	
+	public void alteraTipoConta(Long id, String estado) {
+		Optional<Conta> conta = repo.findById(id);
+		conta.ifPresent(con -> {
+			con.alteraTipo(EstadoConta.valueOf(estado));
+			repo.save(con);
+		});
+	}
+	
+	public void tranfereValores(Conta contaSaida, Conta contaDestino, double valor) {
+		Optional<Conta> conta = repo.findById(contaSaida.getId());		
+		conta.ifPresent(operacao -> {
+			operacao.transferencia(100.00, contaDestino);
+			repo.save(operacao);
+		});
+	}	
 	
 }

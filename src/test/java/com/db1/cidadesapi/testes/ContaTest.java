@@ -24,8 +24,6 @@ import com.db1.cidadesapi.services.ClienteService;
 import com.db1.cidadesapi.services.ContaService;
 import com.db1.cidadesapi.services.EstadoService;
 
-import junit.framework.Assert;
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -83,6 +81,25 @@ public class ContaTest {
 		contaService.sacar(1L, 100.0);
 		Conta contaAposSaque = contaService.buscarPorId(1L);
 		Assertions.assertEquals(saldoAposSaque, contaAposSaque.getSaldo());
+	}
+	
+	@Test
+	public void alterarTipoConta() {
+		EstadoConta estadoAlterado = EstadoConta.INATIVA;
+		contaService.alteraTipoConta(1L, "INATIVA");
+		Conta novoEstadoDaConta = contaService.buscarPorId(1L);
+		Assertions.assertEquals(estadoAlterado, novoEstadoDaConta.getEstado());
+	}
+	
+	@Test
+	public void tranfereValorDeConta() {
+		double saldoAposTransferir = 400;
+		double saldoAposreceber = 600;
+		Conta contaSaida = contaService.buscarPorId(2L);
+		Conta contaDestino = contaService.buscarPorId(3L);
+		contaService.tranfereValores(contaSaida, contaDestino, 100.00);
+		Assertions.assertEquals(saldoAposTransferir, contaSaida.getSaldo());
+		Assertions.assertEquals(saldoAposreceber, contaDestino.getSaldo());
 	}
 	
 	@After
