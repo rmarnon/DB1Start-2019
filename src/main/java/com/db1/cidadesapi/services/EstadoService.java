@@ -1,5 +1,6 @@
 package com.db1.cidadesapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,12 @@ public class EstadoService {
 		return repo.save(estado);
 	}
 	
-	public void limpar() {
+	public void deletarTodosOsEstados() {
 		repo.deleteAll();
 	}
 	
 	public Estado buscarPorNome(String nome) {
-		return repo.findByNome(nome).orElseThrow(() -> new RuntimeException("Estado nao encontrado"));
+		return repo.findByNome(nome).orElseThrow(() -> new RuntimeException("Estado nao encontrado, ou não cadastrado"));
 	}
 	
 	public Estado buscarPorId(Long id) {
@@ -33,4 +34,17 @@ public class EstadoService {
 				+ id + ", Tipo: " + Estado.class.getName()));
 	}	
 	
+	 public List<Estado> buscarTodos() {
+	        return repo.findAll();
+	}
+	 
+	    public Estado atualizarEstado(Long estadoId, String novoNome) {
+	        Estado estado = buscarPorId(estadoId);
+	        estado.setNome(novoNome);
+	        return repo.save(estado);
+	    }
+	 
+	 public void deletarPorId(Long id) {
+		 repo.deleteById(id);
+	 }
 }

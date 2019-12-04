@@ -44,7 +44,7 @@ public class ContaTest {
 	public void test() {		
 		Estado estado = estadoService.criarEstado("Parana");
 		Cidade cidade = cidadeService.criarCidade("Maringa", estado);
-		Agencia agencia = agenciaService.criaAgencia("123", "1", "Banco do Brasil", cidade);
+		Agencia agencia = agenciaService.criaAgencia("123", "0372-7", cidade);
 		Cliente cliente = clienteService.criaCliente("Rodrigo", "123456", "789");
 		Conta conta = contaService.criarConta(agencia, 500.00, cliente, EstadoConta.ATIVA);
 		
@@ -94,12 +94,12 @@ public class ContaTest {
 	@Test
 	public void tranfereValorDeConta() {
 		double saldoAposTransferir = 400;
-		double saldoAposreceber = 600;
+		double saldoAposReceber = 600;
 		Conta contaSaida = contaService.buscarPorId(2L);
 		Conta contaDestino = contaService.buscarPorId(3L);
 		contaService.tranfereValores(contaSaida, contaDestino, 100.00);
 		Assertions.assertEquals(saldoAposTransferir, contaSaida.getSaldo());
-		Assertions.assertEquals(saldoAposreceber, contaDestino.getSaldo());
+		Assertions.assertEquals(saldoAposReceber, contaDestino.getSaldo());
 	}
 	
 	@After

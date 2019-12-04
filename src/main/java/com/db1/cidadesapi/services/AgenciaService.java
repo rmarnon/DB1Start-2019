@@ -14,25 +14,37 @@ import com.db1.cidadesapi.repositories.AgenciaRepository;
 public class AgenciaService {
 	
 	@Autowired
-	private AgenciaRepository repo;
+	private AgenciaRepository agenciaRepository;
+	@Autowired
+	private CidadeService cidadeService;
 	
-	public Agencia criaAgencia(String numero, String digito, String banco, Cidade cidade) {
-		Agencia agencia = new  Agencia(numero, digito, banco, cidade);
-		return repo.save(agencia);
+	public Agencia criaAgencia(String numero, String numeroBanco, Long cidadeId) {
+		Cidade cidade = cidadeService.buscarPorId(cidadeId);
+		Agencia agencia = new  Agencia(numero, numeroBanco, cidade);
+		return agenciaRepository.save(agencia);
 	}
 	
 	public void limpar() {
-		repo.deleteAll();
+		agenciaRepository.deleteAll();
 	}
 	
 	public Agencia buscarPorId(Long id) {
-		Optional<Agencia> agencia = repo.findById(id);
+		Optional<Agencia> agencia = agenciaRepository.findById(id);
 		return agencia.orElseThrow(() -> new RuntimeException("Agencia nao identificada! id: " 
 				+ id + ", Tipo: " + Agencia.class.getName()));
 	}
 	
 	public List<Agencia> buscarTodasAgencias() {
-		List<Agencia> agencia = repo.findAll();
+		List<Agencia> agencia = agenciaRepository.findAll();
 		return agencia;
 	}
+	
+	public List<Agencia> buscarTodasPeloIdDaCidade(Long cidadeId) {
+        return agenciaRepository.findByCidadeId(cidadeId);
+    }
+	
+	public void deletarTodasAgencias() {
+    	agenciaRepository.deleteAll();
+    }
+	
 }

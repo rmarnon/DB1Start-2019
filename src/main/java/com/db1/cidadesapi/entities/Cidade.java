@@ -25,11 +25,11 @@ public class Cidade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "Nome", length = 60)
+	@Column(name = "Nome", length = 60, nullable = false)
 	private String nome;
 	
 	@ManyToOne
-	@JoinColumn(name = "estado_id", referencedColumnName = "id")
+	@JoinColumn(name = "estado_id", referencedColumnName = "id", nullable = false)
 	private Estado estado;
 	
 	@JsonIgnore
@@ -59,6 +59,11 @@ public class Cidade {
 	
 	public Long getId() {
 		return id;
+	}
+
+	public void setNome(String novoNome) {
+		this.nome = novoNome;
+		
 	}
 	
 }

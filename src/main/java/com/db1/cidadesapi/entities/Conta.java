@@ -1,5 +1,6 @@
 package com.db1.cidadesapi.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,13 +24,15 @@ public class Conta {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "agencia_id", referencedColumnName = "id")
+	@JoinColumn(name = "agencia_id", referencedColumnName = "id", nullable = false)
 	private Agencia agencia;
+	
+	@Column(name = "saldo", nullable = false)
 	private Double saldo;
 	
 	@JsonIgnore
 	@OneToOne
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
 	@Enumerated(EnumType.STRING)

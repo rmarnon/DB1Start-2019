@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,12 +24,15 @@ public class Agencia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "numero", nullable = false)
 	private String numero;
-	private String digito;
-	private String banco;
+	
+	@Column(name = "NumeroDoBanco", nullable = false)
+	private String numeroBanco;
 	
 	@ManyToOne
-	@JoinColumn(name = "cidade_id", referencedColumnName = "id")
+	@JoinColumn(name = "cidade_id", referencedColumnName = "id", nullable = false)
 	private Cidade cidade;
 	
 	@JsonIgnore
@@ -38,10 +42,9 @@ public class Agencia {
 	public Agencia() {
 	}
 
-	public Agencia(String numero, String digito, String banco, Cidade cidade) {
+	public Agencia(String numero, String numeroBanco, Cidade cidade) {
 		this.numero = numero;
-		this.digito = digito;
-		this.banco = banco;
+		this.numeroBanco = numeroBanco;
 		this.cidade = cidade;
 		this.conta = new ArrayList<>();
 	}
@@ -54,14 +57,6 @@ public class Agencia {
 		return numero;
 	}
 	
-	public String getDigito() {
-		return digito;
-	}
-
-	public String getBanco() {
-		return banco;
-	}
-
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -69,5 +64,23 @@ public class Agencia {
 	public List<Conta> getConta() {
 		return conta;
 	}
+
+	public String getNumeroBanco() {
+		return numeroBanco;
+	}
+
+	public void setNumeroBanco(String numeroBanco) {
+		this.numeroBanco = numeroBanco;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+	
+	
 	
 }

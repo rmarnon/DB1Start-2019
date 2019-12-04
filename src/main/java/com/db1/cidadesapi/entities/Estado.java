@@ -23,7 +23,7 @@ public class Estado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "Nome")
+	@Column(name = "Nome", nullable = false)
 	private String nome;
 	
 	@JsonIgnore
@@ -48,6 +48,10 @@ public class Estado {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	
