@@ -16,49 +16,55 @@ import com.db1.cidadesapi.repositories.ContaRepository;
 public class ContaService {
 
 	@Autowired
-	private ContaRepository repo;
+	private AgenciaService agenciaService;
+	@Autowired
+	private ClienteService clienteService;
+	@Autowired
+	private ContaRepository contaRepository;
 	
-	public Conta criarConta(Agencia agencia, Double saldo, Cliente cliente, EstadoConta estado) {
-		Conta conta = new Conta(agencia, saldo, cliente, estado);
-		return repo.save(conta);
+	public Conta criar(Double saldo, Long agenciaId, Long clienteId) {
+		Agencia agencia = agenciaService.buscarPorId(agenciaId);
+		Cliente cliente = clienteService.buscarPorId(clienteId);
+		Conta conta = new Conta(agencia, saldo, cliente);
+		return contaRepository.save(conta);
 	}
 	
-	public void limpar() {
-		repo.deleteAll();
+	public void deletarTodasAsContas() {
+		contaRepository.deleteAll();
 	}
 	
 	public Conta buscarPorId(Long id) {
-		Optional<Conta> estado = repo.findById(id);
+		Optional<Conta> estado = contaRepository.findById(id);
 		return estado.orElseThrow(() -> new RuntimeException("Conta nao encontrada! id: " 
 				+ id + ", Tipo: " + Conta.class.getName()));
 	}
 	
 	public List<Conta> retornaTodasAsContas() {
-		List<Conta> conta = repo.findAll();
+		List<Conta> conta = contaRepository.findAll();
 		return conta;
 	}
 	
 	public void sacar(Long id, double valor) {
-		Optional<Conta> conta = repo.findById(id);
+		Optional<Conta> conta = contaRepository.findById(id);
 		conta.ifPresent(con -> {
 			con.saque(valor);
-			repo.save(con);
+			contaRepository.save(con);
 		});
 	}
 	
 	public void alteraTipoConta(Long id, String estado) {
-		Optional<Conta> conta = repo.findById(id);
+		Optional<Conta> conta = contaRepository.findById(id);
 		conta.ifPresent(con -> {
 			con.alteraTipo(EstadoConta.valueOf(estado));
-			repo.save(con);
+			contaRepository.save(con);
 		});
 	}
 	
 	public void tranfereValores(Conta contaSaida, Conta contaDestino, double valor) {
-		Optional<Conta> conta = repo.findById(contaSaida.getId());		
+		Optional<Conta> conta = contaRepository.findById(contaSaida.getId());		
 		conta.ifPresent(operacao -> {
 			operacao.transferencia(100.00, contaDestino);
-			repo.save(operacao);
+			contaRepository.save(operacao);
 		});
 	}	
 	

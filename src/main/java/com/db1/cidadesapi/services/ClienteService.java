@@ -1,5 +1,6 @@
 package com.db1.cidadesapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class ClienteService {
 		Optional<Cliente> cliente = repo.findById(id);
 		return cliente.orElseThrow(() -> new RuntimeException("Cliente nao encontrada! id: " 
 				+ id + ", Tipo: " + Cliente.class.getName()));
+	}
+	
+	public List<Cliente> buscarTodosOsClientes() {
+		return repo.findAll();
+	}
+	
+	public void deletarTodosOsCliente() {
+		repo.deleteAll();
 	}
 }

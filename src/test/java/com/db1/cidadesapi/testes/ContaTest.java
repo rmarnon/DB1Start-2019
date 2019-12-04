@@ -6,7 +6,12 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,31 +31,55 @@ import com.db1.cidadesapi.services.EstadoService;
 
 
 @RunWith(SpringRunner.class)
+@TestInstance(Lifecycle.PER_CLASS)
 @SpringBootTest
 public class ContaTest {
 
 	@Autowired
-	public AgenciaService agenciaService;
+	private ContaService contaService;
 	@Autowired
-	public EstadoService estadoService;
+	private AgenciaService agenciaService;
 	@Autowired
-	public CidadeService cidadeService;
+	private ClienteService clienteService;
 	@Autowired
-	public ContaService contaService;
+	private EstadoService estadoService;
 	@Autowired
-	public ClienteService clienteService;
+	private CidadeService cidadeService;
+
+	private Cliente clienteDefault;
+	private Agencia agenciaDefault;
+	private Estado estadoDefault;
+	private Cidade cidadeDefault;
+
+	@BeforeAll
+	public void criaAgenciaEstadoCidadeDefault() {
+		this.estadoDefault = estadoService.criarEstado("Paraná");
+        this.cidadeDefault = cidadeService.criarCidade("Maringá", estadoDefault.getId());
+        this.agenciaDefault = agenciaService.criaAgencia("123", "0372-7", cidadeDefault.getId());
+        this.clienteDefault = clienteService.criaCliente("Rodrigo", "054.773.136-17", "9107-0678");
+	}
+
+	@BeforeEach
+    public void deletarRegistrosantesDeCadaTeste() {
+		contaService.deletarTodasAsContas();
+	}
+
+	@AfterAll
+    public void deletarRegistrosDepoisDosTestes() {
+		contaService.deletarTodasAsContas();
+		agenciaService.deletarTodasAgencias();
+		cidadeService.deletarTodasAsCidades();
+		estadoService.deletarTodosOsEstados();
+	}
 	
 	@Test
-	public void test() {		
-		Estado estado = estadoService.criarEstado("Parana");
-		Cidade cidade = cidadeService.criarCidade("Maringa", estado);
-		Agencia agencia = agenciaService.criaAgencia("123", "0372-7", cidade);
-		Cliente cliente = clienteService.criaCliente("Rodrigo", "123456", "789");
-		Conta conta = contaService.criarConta(agencia, 500.00, cliente, EstadoConta.ATIVA);
-		
-		assertNotNull(conta);
-		System.out.println(conta.getSaldo());
-	}
+    public void deve_criar_uma_conta() {
+        Double saldo = 100.00;
+        Conta conta = contaService.criar(saldo, agenciaDefault.getId(), clienteDefault.getId());
+        Assertions.assertEquals(conta.getSaldo(), saldo);
+        Assertions.assertEquals(conta.getAgencia().getId(), agenciaDefault.getId());
+        Assertions.assertEquals(conta.getCliente().getId(), clienteDefault.getId());
+    }
 	
 	@Test
 	public void deveBuscarPorId( ) {
