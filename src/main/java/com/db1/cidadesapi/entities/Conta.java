@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.db1.cidadesapi.enums.ContaTipo;
 import com.db1.cidadesapi.enums.EstadoConta;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,6 +39,9 @@ public class Conta {
 	@Enumerated(EnumType.STRING)
 	private EstadoConta estado;
 	
+	@Enumerated(EnumType.STRING)
+	private ContaTipo contaTipo;
+	
 	public Conta() {
 	}
 
@@ -48,11 +52,18 @@ public class Conta {
 		this.estado = estado;
 	}
 	
+	public Conta(Agencia agencia, double saldo, Cliente cliente, EstadoConta estado, ContaTipo contaTipo) {
+		this.agencia = agencia;
+		this.saldo = saldo;
+		this.cliente = cliente;
+		this.estado = estado;
+		this.contaTipo = contaTipo;
+	}
+	
 	public Conta(Agencia agencia, double saldo, Cliente cliente) {
 		this.agencia = agencia;
 		this.saldo = saldo;
 		this.cliente = cliente;
-
 	}
 
 	public Long getId() {

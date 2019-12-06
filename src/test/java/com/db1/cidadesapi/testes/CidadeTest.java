@@ -19,7 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.db1.cidadesapi.entities.Cidade;
+import com.db1.cidadesapi.entities.Conta;
 import com.db1.cidadesapi.entities.Estado;
+import com.db1.cidadesapi.enums.CidadeTipo;
+import com.db1.cidadesapi.enums.EstadoConta;
 import com.db1.cidadesapi.services.CidadeService;
 import com.db1.cidadesapi.services.EstadoService;
 
@@ -101,7 +104,7 @@ public class CidadeTest {
     	cidadeService.criarCidade("Campo Mourão", estadoDefault.getId());
     	cidadeService.criarCidade("Campinas", outroEstado.getId());
 
-    	List<Cidade> todasAsCidadesDoEstado1 = cidadeService.buscarTodosPeloIdDoEstado(estadoDefault.getId());
+    	List<Cidade> todasAsCidadesDoEstado1 = cidadeService.buscarTodosPeloIdDaCidade(estadoDefault.getId());
         List<String> nomesCidadesEstado1 = todasAsCidadesDoEstado1
         		.stream().map(Cidade::getNome).collect(Collectors.toList());
         Assertions.assertEquals(todasAsCidadesDoEstado1.size(), 4);
@@ -141,6 +144,14 @@ public class CidadeTest {
         	cidadeService.buscarPorId(cidadeCriada.getId());
         });
     }
+    
+    @Test
+	public void alterarTipoCidade() {
+		CidadeTipo tipoAlterado = CidadeTipo.INTERIOR;
+		cidadeService.alterarTipoCidade(1L, "CAPITAL");
+		Cidade novoTipoCidade = cidadeService.buscarPorId(1L);
+		Assertions.assertEquals(tipoAlterado, novoTipoCidade.getTipo());
+	}
 	
 	@After
 	public void clean() {

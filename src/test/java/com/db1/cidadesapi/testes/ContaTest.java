@@ -113,7 +113,7 @@ public class ContaTest {
 	}
 	
 	@Test
-	public void alterarTipoConta() {
+	public void alterarEstadoConta() {
 		EstadoConta estadoAlterado = EstadoConta.INATIVA;
 		contaService.alteraTipoConta(1L, "INATIVA");
 		Conta novoEstadoDaConta = contaService.buscarPorId(1L);

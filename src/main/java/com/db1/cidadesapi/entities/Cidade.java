@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.db1.cidadesapi.enums.CidadeTipo;
+import com.db1.cidadesapi.enums.EstadoConta;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -36,12 +38,21 @@ public class Cidade {
 	@OneToMany(mappedBy = "cidade", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agencia> agencias;
 	
+	private CidadeTipo tipo;
+	
 	public Cidade() {
 	}
 	
 	public Cidade(String nome, Estado estado) {
 		this.nome = nome;
 		this.estado = estado;
+		this.agencias = new ArrayList<>();
+	}
+	
+	public Cidade(String nome, Estado estado, CidadeTipo cidadeTipo) {
+		this.nome = nome;
+		this.estado = estado;
+		this.tipo = cidadeTipo;
 		this.agencias = new ArrayList<>();
 	}
 
@@ -64,6 +75,14 @@ public class Cidade {
 	public void setNome(String novoNome) {
 		this.nome = novoNome;
 		
+	}
+
+	public CidadeTipo getTipo() {
+		return tipo;
+	}
+	
+	public void alteraTipo(CidadeTipo tipo) {
+		this.tipo = tipo;
 	}
 	
 }

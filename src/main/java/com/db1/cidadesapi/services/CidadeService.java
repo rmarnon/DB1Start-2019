@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db1.cidadesapi.entities.Cidade;
+import com.db1.cidadesapi.entities.Conta;
 import com.db1.cidadesapi.entities.Estado;
+import com.db1.cidadesapi.enums.CidadeTipo;
+import com.db1.cidadesapi.enums.EstadoConta;
 import com.db1.cidadesapi.repositories.CidadeRepository;
 
 @Service
@@ -29,7 +32,7 @@ public class CidadeService {
 	}
 
 	public Cidade buscarPorNome(String nome) {
-		return cidadeRepository.findByNome(nome).orElseThrow(() -> new RuntimeException("Cidade nao encontrado"));
+		return cidadeRepository.findByNome(nome).orElseThrow(() -> new RuntimeException("Cidade nao encontrada"));
 	}
 
 	public Cidade buscarPorId(Long id) {
@@ -38,20 +41,28 @@ public class CidadeService {
 				() -> new RuntimeException("Cidade nao encontrada! id: " + id + ", Tipo: " + Cidade.class.getName()));
 	}
 
-	public Cidade atualizarNomeDaCidade(Long cidadeId, String novoNome) {
+	public Cidade atualizarNomeDaCidade(Long cidadeId, String novoNomeDaCidade) {
 		Cidade cidade = buscarPorId(cidadeId);
-		cidade.setNome(novoNome);
+		cidade.setNome(novoNomeDaCidade);
 		return cidadeRepository.save(cidade);
 	}
 
-	public List<Cidade> buscarTodosPeloIdDoEstado(Long estadoId) {
-		return cidadeRepository.findEstadoById(estadoId);
+	public List<Cidade> buscarTodosPeloIdDaCidade(Long cidadeId) {
+		return cidadeRepository.findEstadoById(cidadeId);
 	}
 
 	public List<Cidade> buscarTodasAsCidades() {
 		return cidadeRepository.findAll();
 	}
-
+	
+	public void alterarTipoCidade(Long id, String tipo) {
+		Optional<Cidade> cidade = cidadeRepository.findById(id);
+		cidade.ifPresent(cid -> {
+			cid.alteraTipo(CidadeTipo.valueOf(tipo));
+			cidadeRepository.save(cid);
+		});
+	}
+	
 	public void deletarPorId(Long id) {
 		cidadeRepository.deleteById(id);
 	}
